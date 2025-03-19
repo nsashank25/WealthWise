@@ -1,0 +1,110 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #1e1e1e;
+    color: #EAEAEA;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.navbar-logo {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+/* Logo Image */
+.logo-image {
+    height: 50px;  
+    width: auto;   
+}
+
+.navbar-links {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+}
+
+.navbar-links li {
+    text-decoration: none;
+    color: #EAEAEA;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+    cursor: pointer;
+}
+
+.navbar-links li a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.navbar-links li:hover {
+    color: #00B894;
+}
+
+/* Logout Button */
+.logout-item {
+    background-color: #009f7ff2;
+    color: white;
+    padding: 8px 15px;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.logout-item:hover {
+    background-color: #009f7ff2;
+    color: white !important;
+}
+
+/* Dropdown Styling */
+.dropdown {
+    position: relative;
+    cursor: pointer;
+}
+
+.dropdown-title {
+    font-size: 1.2rem;
+    color: #EAEAEA;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #2c2c2c;
+    list-style: none;
+    padding: 10px 0;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-menu li {
+    padding: 10px 20px;
+    text-align: left;
+    transition: background 0.3s;
+}
+
+.dropdown-menu li:hover {
+    background-color: #00B894;
+}
+
+.dropdown-menu li a {
+    color: #EAEAEA;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+}

@@ -1,0 +1,123 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+
+/* Apply full-screen layout */
+.home-container {
+  background-color: #121212;
+  color: #eaeaea; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Styling for the main content card */
+.home-card {
+  background-color: #1e1e1e;
+  width: 80%;
+  max-width: 1200px;
+  padding: 3rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Headings */
+h1 {
+  color: #00b894;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+}
+
+/* Logout Button */
+.logout-button {
+  background-color: #00b894;
+  color: #121212;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.logout-button:hover {
+  background-color: #007bff;
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+/* Light Theme */
+@media (prefers-color-scheme: light) {
+  .home-container {
+    background-color: #f8f9fa;
+    color: #343a40;
+  }
+
+  .home-card {
+    background-color: #ffffff;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  h1 {
+    color: #007bff;
+  }
+
+  .logout-button {
+    background-color: #28a745;
+  }
+
+  .logout-button:hover {
+    background-color: #007bff;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .home-card {
+    width: 90%;
+    padding: 2rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  p {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-card {
+    width: 95%;
+    padding: 1.5rem;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
+  .logout-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+}
