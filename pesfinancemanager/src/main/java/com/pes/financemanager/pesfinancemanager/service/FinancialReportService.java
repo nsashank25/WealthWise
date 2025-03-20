@@ -17,6 +17,14 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.ByteArrayInputStream;
+import java.time.LocalDate;
+import java.time.YearMonth;
+
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+
 
 @Service
 public class FinancialReportService {
@@ -35,6 +43,26 @@ public class FinancialReportService {
         return expenseRepository.getTotalExpensesByUserId(userId);
     }
 
+    public List<Expense> getUserExpenses(Long userId) {
+        return expenseRepository.findAllByUserId(userId);
+    }
+
+    public byte[] generateMonthlyReport(Long userId, int year, int month) throws IOException {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        List<Expense> expenses = expenseRepository.findMonthlyExpenses(userId, year, month);
+        return generateFinancialReport(userId, expenses, "Monthly Report - " + YearMonth.of(year, month));
+    }
+
+    public byte[] generateYearlyReport(Long userId, int year) throws IOException {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        List<Expense> expenses = expenseRepository.findYearlyExpenses(userId, year);
+        return generateFinancialReport(userId, expenses, "Annual Report - " + year);
+    }
+
     public Map<String, Double> getIncomeVsExpenses(Long userId) {
         double income = calculateTotalIncome(userId);
         double expenses = calculateTotalExpenses(userId);
@@ -46,13 +74,13 @@ public class FinancialReportService {
         return report;
     }
 
-    public byte[] generateFinancialReport(Long userId, double income) throws IOException {
+    public byte[] generateFinancialReport(Long userId, List<Expense> expenses, String reportTitle) throws IOException {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        List<Expense> expenses = expenseRepository.findByUser(user);
         double totalExpenses = expenses.stream().mapToDouble(Expense::getAmount).sum();
-        double expensePercentage = (totalExpenses / income) * 100;
+        double income = user.getIncome();
+        double expensePercentage = (income > 0) ? (totalExpenses / income) * 100 : 0;
 
         // Categorize expenses
         Map<String, Double> expenseByCategory = expenses.stream()
@@ -60,10 +88,11 @@ public class FinancialReportService {
 
         // Generate Charts
         byte[] pieChart = generatePieChart(expenseByCategory);
-        byte[] barChart = generateBarChart(expenseByCategory);
+        byte[] barChart = generateBarChart(expenses);
 
         // Generate PDF Report
-        return generatePDF(user.getUsername(), income, totalExpenses, expensePercentage, pieChart, barChart);
+        return generatePDF(user.getUsername(), reportTitle, income, totalExpenses, expensePercentage, pieChart, barChart);
+
     }
 
     private byte[] generatePieChart(Map<String, Double> expenseByCategory) throws IOException {
@@ -77,49 +106,78 @@ public class FinancialReportService {
         return outputStream.toByteArray();
     }
 
-    private byte[] generateBarChart(Map<String, Double> expenseByCategory) throws IOException {
-        CategoryChart chart = new CategoryChartBuilder().width(600).height(400).title("Expenses by Category")
-                .xAxisTitle("Category").yAxisTitle("Amount").build();
+private byte[] generateBarChart(List<Expense> expenses) throws IOException {
+    Map<String, Double> expensesByMonth = expenses.stream()
+            .collect(Collectors.groupingBy(
+                    e -> e.getDate().getMonth().toString(), // Get month name
+                    Collectors.summingDouble(Expense::getAmount)
+            ));
 
-        chart.getStyler().setLegendPosition(Styler.LegendPosition.InsideNW);
-        chart.getStyler().setHasAnnotations(true);
+    CategoryChart chart = new CategoryChartBuilder().width(600).height(400)
+            .title("Monthly Expenses").xAxisTitle("Month").yAxisTitle("Amount").build();
 
-        List<String> categories = new ArrayList<>(expenseByCategory.keySet());
-        List<Double> amounts = new ArrayList<>(expenseByCategory.values());
+    chart.getStyler().setLegendPosition(Styler.LegendPosition.InsideNW);
+    chart.getStyler().setHasAnnotations(true);
 
-        chart.addSeries("Expenses", categories, amounts);
+    List<String> months = new ArrayList<>(expensesByMonth.keySet());
+    List<Double> amounts = new ArrayList<>(expensesByMonth.values());
 
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        BitmapEncoder.saveBitmap(chart, outputStream, BitmapEncoder.BitmapFormat.PNG);
-        return outputStream.toByteArray();
-    }
+    chart.addSeries("Expenses", months, amounts);
 
-    private byte[] generatePDF(String username, double income, double totalExpenses, double expensePercentage, byte[] pieChart, byte[] barChart) throws IOException {
-        PDDocument document = new PDDocument();
-        PDPage page = new PDPage();
-        document.addPage(page);
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    BitmapEncoder.saveBitmap(chart, outputStream, BitmapEncoder.BitmapFormat.PNG);
+    return outputStream.toByteArray();
+}
 
-        PDPageContentStream contentStream = new PDPageContentStream(document, page);
-        contentStream.setFont(PDType1Font.HELVETICA_BOLD, 14);
-        contentStream.beginText();
-        contentStream.newLineAtOffset(100, 700);
-        contentStream.showText("Financial Report for: " + username);
-        contentStream.newLineAtOffset(0, -20);
-        contentStream.showText("Total Income: Rs. " + income);
-        contentStream.newLineAtOffset(0, -20);
-        contentStream.showText("Total Expenses: Rs. " + totalExpenses);
-        contentStream.newLineAtOffset(0, -20);
-        contentStream.showText("Total Savings: Rs. " + (income - totalExpenses));
-        contentStream.newLineAtOffset(0, -20);
-        contentStream.showText("Percentage of Income Spent: " + String.format("%.2f", expensePercentage) + "%");
-        contentStream.endText();
-        contentStream.close();
+private byte[] generatePDF(String username, String reportTitle, double income, double totalExpenses,
+                           double expensePercentage, byte[] pieChart, byte[] barChart) throws IOException {
+    PDDocument document = new PDDocument();
+    PDPage page = new PDPage();
+    document.addPage(page);
 
-        // Convert to byte array
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        document.save(outputStream);
-        document.close();
+    PDPageContentStream contentStream = new PDPageContentStream(document, page);
+    contentStream.setFont(PDType1Font.HELVETICA_BOLD, 14);
+    contentStream.beginText();
+    contentStream.newLineAtOffset(100, 700);
+    contentStream.showText(reportTitle);
+    contentStream.newLineAtOffset(0, -20);
+    contentStream.showText("User: " + username);
+    contentStream.newLineAtOffset(0, -20);
+    contentStream.showText("Total Income: Rs. " + income);
+    contentStream.newLineAtOffset(0, -20);
+    contentStream.showText("Total Expenses: Rs. " + totalExpenses);
+    contentStream.newLineAtOffset(0, -20);
+    contentStream.showText("Total Savings: Rs. " + (income - totalExpenses));
+    contentStream.newLineAtOffset(0, -20);
+    contentStream.showText("Percentage of Income Spent: " + String.format("%.2f", expensePercentage) + "%");
+    contentStream.endText();
+    contentStream.close();
 
-        return outputStream.toByteArray();
-    }
+    // Convert charts to images
+    BufferedImage pieImage = ImageIO.read(new ByteArrayInputStream(pieChart));
+    BufferedImage barImage = ImageIO.read(new ByteArrayInputStream(barChart));
+
+    // Create new page for images
+    PDPage imagePage = new PDPage();
+    document.addPage(imagePage);
+
+    PDPageContentStream imageStream = new PDPageContentStream(document, imagePage);
+
+    // Convert images to PDF format
+    PDImageXObject pieImageObject = PDImageXObject.createFromByteArray(document, pieChart, "pieChart");
+    PDImageXObject barImageObject = PDImageXObject.createFromByteArray(document, barChart, "barChart");
+
+    // Draw images in PDF
+    imageStream.drawImage(pieImageObject, 50, 400, 500, 300);
+    imageStream.drawImage(barImageObject, 50, 100, 500, 300);
+    imageStream.close();
+
+    // Convert to byte array
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    document.save(outputStream);
+    document.close();
+
+    return outputStream.toByteArray();
+}
+
 }

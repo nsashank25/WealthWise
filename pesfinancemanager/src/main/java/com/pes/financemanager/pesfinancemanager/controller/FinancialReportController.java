@@ -6,6 +6,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.pes.financemanager.pesfinancemanager.model.Expense;
+import java.util.List;
 
 import java.io.IOException;
 
@@ -19,8 +21,11 @@ public class FinancialReportController {
     @GetMapping("/{userId}/download")
     public ResponseEntity<byte[]> downloadFinancialReport(@PathVariable Long userId) {
         try {
-            double income = financialReportService.calculateTotalIncome(userId); // Fetch income from DB
-            byte[] pdfBytes = financialReportService.generateFinancialReport(userId, income);
+            // Fetch expenses for the user
+            List<Expense> expenses = financialReportService.getUserExpenses(userId);
+
+            // Generate the report with correct parameters
+            byte[] pdfBytes = financialReportService.generateFinancialReport(userId, expenses, "Financial Report");
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_PDF);
@@ -33,6 +38,7 @@ public class FinancialReportController {
             return ResponseEntity.internalServerError().body(null);
         }
     }
+
 
     @GetMapping("/{userId}")
     public ResponseEntity<?> getIncomeVsExpenses(@PathVariable Long userId) {
