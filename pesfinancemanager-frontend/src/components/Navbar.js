@@ -29,6 +29,7 @@ const Navbar = ({ onLogout }) => {
               <li><Link to="/income-vs-expenses">Income vs. Expenses</Link></li>
               <li><Link to="/investment-suggestions">Investment Suggestions</Link></li>
               <li><Link to="/tax-estimator">Tax Estimator</Link></li>
+              <li><Link to="/expense-reduction">Expense Reduction</Link></li>
             </ul>
           )}
         </li>

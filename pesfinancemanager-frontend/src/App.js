@@ -6,6 +6,8 @@ import HomePage from "./components/HomePage";
 import Expenses from "./components/Expenses";
 import Navbar from "./components/Navbar";
 import IncomeVsExpenses from "./components/IncomeVsExpenses";
+import ExpenseReduction from "./components/ExpenseReduction";
+import FinancialGoals from "./components/FinancialGoals";
 
 function App() {
   return (
@@ -73,6 +75,9 @@ function AppRoutes() {
           }
         />
         <Route path="/income-vs-expenses" element={<IncomeVsExpenses />} />
+        <Route path="/expense-reduction" element={<ExpenseReduction />} />
+        <Route path="/financial-goals" element={<FinancialGoals />} />
+
       </Routes>
     </>
   );
