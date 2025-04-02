@@ -13,11 +13,28 @@ import java.util.Optional;
 @Service
 public class FinancialGoalService {
 
+    private static FinancialGoalService instance; // Singleton instance
+
     @Autowired
     private FinancialGoalRepository financialGoalRepository;
 
     @Autowired
     private UserRepository userRepository;
+
+    // Private constructor to prevent instantiation
+    private FinancialGoalService() {}
+
+    // Static method to provide a single instance
+    public static FinancialGoalService getInstance() {
+        if (instance == null) {
+            synchronized (FinancialGoalService.class) { // Thread-safe initialization
+                if (instance == null) {
+                    instance = new FinancialGoalService();
+                }
+            }
+        }
+        return instance;
+    }
 
     public FinancialGoal createGoal(Long userId, FinancialGoal goal) {
         Optional<User> userOptional = userRepository.findById(userId);
