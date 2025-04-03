@@ -1,0 +1,114 @@
+/* Financial Goals Page Styles */
+.financial-goals-container {
+  background-color: #121212;
+  color: #eaeaea;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto; /* Allow scrolling if content overflows */
+  margin-top: 80px;
+}
+
+.financial-goals-card {
+  background-color: #1e1e1e;
+  width: 80%;
+  max-width: 800px;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers form inside the card */
+  justify-content: center;
+}
+
+h2 {
+  color: #00b894;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+/* Goal Form */
+.goal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.goal-form input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #555;
+  border-radius: 6px;
+  background-color: #222;
+  color: #eaeaea;
+  font-size: 1rem;
+}
+
+.goal-form input:focus {
+  outline: none;
+  border-color: #00b894;
+}
+
+.add-goal-button {
+  background-color: #00b894;
+  color: #121212;
+  border: none;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.add-goal-button:hover {
+  background-color: #007bff;
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+/* Goals List */
+.goals-list {
+  width: 100%;
+  list-style-type: none;
+  max-width: 800px;
+  margin-top: auto; /* Push the list to the bottom */
+}
+
+.goal-item {
+  background-color: #2a2a2a;
+  padding: 12px;
+  border-radius: 6px;
+  margin: 10px 0;
+  font-size: 1.1rem;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.saved-amount {
+  color: #00b894;
+  font-size: 0.9rem;
+  margin-left: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .financial-goals-card {
+    width: 90%;
+    padding: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  .add-goal-button {
+    padding: 10px;
+    font-size: 1rem;
+  }
+}

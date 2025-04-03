@@ -24,7 +24,7 @@ public class SecurityConfig {
                 .httpBasic(httpBasic -> httpBasic.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/users/register", "/api/users/login", "/api/expenses/**", "api/reports/**").permitAll()
+                        .requestMatchers("/api/users/register", "/api/users/login", "/api/expenses/**", "api/reports/**", "/api/goals/**").permitAll()
                         .anyRequest().authenticated() // Secure other endpoints
                 );
 
