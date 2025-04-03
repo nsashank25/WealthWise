@@ -3,6 +3,8 @@ package com.pes.financemanager.pesfinancemanager.controller;
 import com.pes.financemanager.pesfinancemanager.model.User;
 import com.pes.financemanager.pesfinancemanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -25,21 +27,21 @@ public class UserController {
         return response;
     }
 
-    @PostMapping("/login")
-    public Map<String, Object> loginUser(@RequestBody Map<String, String> loginRequest) {
-        String username = loginRequest.get("username");
-        String password = loginRequest.get("password");
+@PostMapping("/login")
+public ResponseEntity<?> loginUser(@RequestBody Map<String, String> loginRequest) {
+    String username = loginRequest.get("username");
+    String password = loginRequest.get("password");
 
-        User user = userService.findByUsername(username); // Fetch user from DB
+    User user = userService.findByUsername(username);
+    Map<String, Object> response = new HashMap<>();
 
-        Map<String, Object> response = new HashMap<>();
-        if (user != null && userService.authenticate(username, password)) {
-            response.put("message", "Login successful");
-            response.put("userId", user.getId()); // Include userId in response
-        } else {
-            response.put("message", "Invalid username or password");
-        }
-        return response;
+    if (user != null && userService.authenticate(username, password)) {
+        response.put("message", "Login successful");
+        response.put("userId", user.getId());
+        return ResponseEntity.ok(response);
+    } else {
+        response.put("message", "Invalid username or password");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }
-
+}
 }
