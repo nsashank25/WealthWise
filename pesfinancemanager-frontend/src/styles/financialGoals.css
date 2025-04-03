@@ -13,7 +13,8 @@
   margin-top: 80px;
 }
 
-.financial-goals-card {
+/* Form at the top */
+.goal-form-container {
   background-color: #1e1e1e;
   width: 80%;
   max-width: 800px;
@@ -23,8 +24,8 @@
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centers form inside the card */
-  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 h2 {
@@ -38,6 +39,7 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  width: 100%;
 }
 
 .goal-form input {
@@ -73,12 +75,39 @@ h2 {
   transform: scale(1.05);
 }
 
+/* Layout for ongoing and completed goals */
+.goals-section {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  width: 80%;
+  max-width: 1200px;
+}
+
+/* Ongoing Goals */
+.financial-goals-card {
+  background-color: #1e1e1e;
+  width: 48%;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Completed Goals */
+.completed-goals {
+  width: 48%;
+}
+
 /* Goals List */
 .goals-list {
   width: 100%;
   list-style-type: none;
   max-width: 800px;
-  margin-top: auto; /* Push the list to the bottom */
+  margin-top: 10px;
 }
 
 .goal-item {
@@ -98,7 +127,7 @@ h2 {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .financial-goals-card {
+  .goal-form-container {
     width: 90%;
     padding: 1.5rem;
   }
@@ -110,5 +139,15 @@ h2 {
   .add-goal-button {
     padding: 10px;
     font-size: 1rem;
+  }
+
+  /* Adjust layout to stack sections on small screens */
+  .goals-section {
+    flex-direction: column;
+    width: 90%;
+  }
+
+  .financial-goals-card {
+    width: 100%;
   }
 }
