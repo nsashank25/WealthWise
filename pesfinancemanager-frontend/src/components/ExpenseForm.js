@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { addExpense } from "../services/api";
 
-const ExpenseForm = ({ userId, onExpenseAdded }) => {
+const ExpenseForm = ({ userId, onExpenseAdded, setAlertMessage }) => {
     const [category, setCategory] = useState("Food");
     const [amount, setAmount] = useState("");
     const [date, setDate] = useState("");
@@ -16,13 +16,21 @@ const ExpenseForm = ({ userId, onExpenseAdded }) => {
 
         const expenseData = { category, amount, date, description };
         try {
-            await addExpense(userId, expenseData);
+            const response = await addExpense(userId, expenseData);
+
+            if (response.data.message) {
+                setAlertMessage(response.data.message);
+            } else {
+                setAlertMessage(null);
+            }
+
             onExpenseAdded();
             setAmount("");
             setDate("");
             setDescription("");
         } catch (error) {
             console.error("Error adding expense:", error);
+            setAlertMessage(null);
         }
     };
 

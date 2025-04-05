@@ -1,4 +1,6 @@
 package com.pes.financemanager.pesfinancemanager.controller;
+
+import com.pes.financemanager.pesfinancemanager.dto.ExpenseResponse;
 import com.pes.financemanager.pesfinancemanager.model.Expense;
 import com.pes.financemanager.pesfinancemanager.service.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +16,8 @@ public class ExpenseController {
     private ExpenseService expenseService;
 
     @PostMapping("/{userId}/add")
-    public Expense addExpense(@PathVariable Long userId, @RequestBody Expense expense) {
-        return expenseService.addExpense(userId, expense);
+    public ExpenseResponse addExpense(@PathVariable Long userId, @RequestBody Expense expense) {
+        return expenseService.addExpenseWithAlert(userId, expense);
     }
 
     @GetMapping("/{userId}")
