@@ -8,6 +8,8 @@ import Navbar from "./components/Navbar";
 import IncomeVsExpenses from "./components/IncomeVsExpenses";
 import ExpenseReduction from "./components/ExpenseReduction";
 import FinancialGoals from "./components/FinancialGoals";
+import InvestmentDashboard from "./components/InvestmentDashboard";
+import FinancialProfileForm from "./components/FinancialProfileForm";
 
 function App() {
   return (
@@ -77,6 +79,8 @@ function AppRoutes() {
         <Route path="/income-vs-expenses" element={<IncomeVsExpenses />} />
         <Route path="/expense-reduction" element={<ExpenseReduction />} />
         <Route path="/financial-goals" element={<FinancialGoals />} />
+        <Route path="/investment-suggestions" element={<InvestmentDashboard />} />
+        <Route path="/update-profile" element={<FinancialProfileForm />} />
 
       </Routes>
     </>
