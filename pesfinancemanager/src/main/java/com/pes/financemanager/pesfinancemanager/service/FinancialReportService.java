@@ -180,4 +180,54 @@ private byte[] generatePDF(String username, String reportTitle, double income, d
     return outputStream.toByteArray();
 }
 
+    public List<Map<String, Object>> getMonthlyTrend(Long userId) {
+        List<Expense> expenses = expenseRepository.findAllByUserId(userId);
+        Map<YearMonth, Double> incomeMap = new HashMap<>();
+        Map<YearMonth, Double> expenseMap = new HashMap<>();
+
+        for (Expense e : expenses) {
+            YearMonth ym = YearMonth.from(e.getDate());
+            expenseMap.put(ym, expenseMap.getOrDefault(ym, 0.0) + e.getAmount());
+        }
+
+        // Assume income is static; update if monthly income varies
+        double income = calculateTotalIncome(userId);
+        for (YearMonth ym : expenseMap.keySet()) {
+            incomeMap.put(ym, income);
+        }
+
+        List<Map<String, Object>> result = new ArrayList<>();
+        for (YearMonth ym : expenseMap.keySet()) {
+            Map<String, Object> entry = new HashMap<>();
+            entry.put("month", ym.toString()); // format like "2024-03"
+            entry.put("income", incomeMap.get(ym));
+            entry.put("expenses", expenseMap.get(ym));
+            result.add(entry);
+        }
+
+        return result.stream()
+                .sorted(Comparator.comparing(e -> YearMonth.parse((String) e.get("month"))))
+                .collect(Collectors.toList());
+    }
+
+    public List<Map<String, Object>> getTopCategories(Long userId, int limit) {
+        List<Expense> expenses = expenseRepository.findAllByUserId(userId);
+
+        Map<String, Double> categoryTotals = expenses.stream()
+                .collect(Collectors.groupingBy(
+                        Expense::getCategory,
+                        Collectors.summingDouble(Expense::getAmount)
+                ));
+
+        return categoryTotals.entrySet().stream()
+                .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
+                .limit(limit)
+                .map(e -> {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("category", e.getKey());
+                    map.put("amount", e.getValue());
+                    return map;
+                })
+                .collect(Collectors.toList());
+    }
 }

@@ -1,125 +1,203 @@
-/* Remove horizontal overflow */
+/* Reset */
 body, html {
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-  }
-  
-  /* Full-screen layout */
-  .income-expenses-container {
-    background-color: #121212;
-    color: #eaeaea;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    width: 100vw;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-  
-  /* Main content card */
-  .income-expenses-card {
-    background-color: #1e1e1e;
-    width: 80%;
-    max-width: 1200px;
-    padding: 3rem;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.5);
-  }
-  
-  /* Headings */
-  h2 {
-    color: #00b894;
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-  }
-  
-  /* Chart container */
-  .chart-container {
-    max-width: 400px;
-    margin: 20px auto;
-  }
-  
-/* Download button - Adjusted size */
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Layout */
+.income-expenses-container {
+  background-color: #121212;
+  color: #eaeaea;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Card Styling */
+.income-expenses-card {
+  background-color: #1e1e1e;
+  width: 90%;
+  max-width: 600px;
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  text-align: center;
+}
+
+/* Headings */
+h2 {
+  color: #00b894;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+/* Chart Container */
+.chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px; /* or auto, or 100%, based on layout */
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+.chart-container:hover {
+  transform: scale(1.01);
+}
+
+/* Button Styling */
 .download-btn {
-  background-color: #00b894;
-  color: #121212;
+  background: linear-gradient(135deg, #00b894, #26de81);
+  color: #fff;
   border: none;
-  padding: 10px 18px; /* Reduced padding */
-  font-size: 1rem; /* Smaller font size */
-  font-weight: bold;
-  border-radius: 5px; /* Slightly reduced border radius */
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
   cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 184, 148, 0.3);
   transition: all 0.3s ease-in-out;
 }
 
 .download-btn:hover {
-  background-color: #007bff;
-  color: #ffffff;
-  transform: scale(1.05);
+  background: linear-gradient(135deg, #007bff, #00b894);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
 }
 
-/* Further reduce button size on smaller screens */
-@media (max-width: 768px) {
+/* Light Theme */
+@media (prefers-color-scheme: light) {
+  .income-expenses-container {
+    background-color: #f5f7fa;
+    color: #2c3e50;
+  }
+
+  .income-expenses-card {
+    background-color: #ffffff;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+  }
+
+  h2 {
+    color: #007bff;
+  }
+
+  .chart-container {
+    background-color: #f1f3f5;
+  }
+
   .download-btn {
-      padding: 8px 16px; /* Smaller padding */
-      font-size: 0.9rem; /* Slightly smaller text */
+    background: linear-gradient(135deg, #28a745, #48c774);
+    color: white;
+  }
+
+  .download-btn:hover {
+    background: linear-gradient(135deg, #007bff, #28a745);
   }
 }
 
-  
-  /* Light Theme */
-  @media (prefers-color-scheme: light) {
-    .income-expenses-container {
-      background-color: #f8f9fa;
-      color: #343a40;
-    }
-  
-    .income-expenses-card {
-      background-color: #ffffff;
-      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
-    }
-  
-    h2 {
-      color: #007bff;
-    }
-  
-    .download-btn {
-      background-color: #28a745;
-    }
-  
-    .download-btn:hover {
-      background-color: #007bff;
-    }
+/* Responsive Design */
+@media (max-width: 768px) {
+  .income-expenses-card {
+    padding: 1.5rem;
   }
-  
-  /* Responsive Design */
-  @media (max-width: 1024px) {
-    .income-expenses-card {
-      width: 90%;
-      padding: 2rem;
-    }
-  
-    h2 {
-      font-size: 2rem;
-    }
+
+  h2 {
+    font-size: 1.6rem;
   }
-  
-  @media (max-width: 768px) {
-    .income-expenses-card {
-      width: 95%;
-      padding: 1.5rem;
-    }
-  
-    h2 {
-      font-size: 1.8rem;
-    }
-  
-    .download-btn {
-      padding: 10px 20px;
-      font-size: 1rem;
-    }
+
+  .download-btn {
+    padding: 10px 20px;
+    font-size: 0.95rem;
   }
+}
+
+.summary {
+  margin: 32px auto;
+  max-width: 500px;
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 20px 28px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  color: #eaeaea;
+  text-align: left;
+}
+
+/* Paragraph styling */
+.summary p {
+  margin: 10px 0;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Align labels and values neatly */
+.summary p strong {
+  display: inline-block;
+  width: 180px;
+}
+
+/* Color coding */
+.summary p:nth-child(1) {
+  color: #00c853; /* Green for income */
+}
+
+.summary p:nth-child(2) {
+  color: #ff5252; /* Red for expenses */
+}
+
+.summary p:nth-child(3) {
+  color: #40c4ff; /* Blue for balance */
+}
+
+.bar-chart-container,
+.top-categories {
+  max-width: 700px;
+  margin: 40px auto;
+  background-color: #1e1e1e;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  color: #eaeaea;
+  text-align: center;
+}
+
+.bar-chart-container h3,
+.top-categories h3 {
+  color: #00b894;
+  margin-bottom: 20px;
+}
+
+.top-categories ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 10px;
+}
+
+.top-categories li {
+  font-size: 16px;
+  padding: 6px 0;
+  border-bottom: 1px solid #333;
+}
+
+@media (prefers-color-scheme: light) {
+  .bar-chart-container,
+  .top-categories {
+    background-color: #ffffff;
+    color: #2c3e50;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+  }
+
+  .bar-chart-container h3,
+  .top-categories h3 {
+    color: #007bff;
+  }
+
+  .top-categories li {
+    border-color: #ccc;
+  }
+}

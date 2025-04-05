@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.pes.financemanager.pesfinancemanager.model.Expense;
 import java.util.List;
+import java.util.Map;
 
 import java.io.IOException;
 
@@ -39,10 +40,18 @@ public class FinancialReportController {
         }
     }
 
+    @GetMapping("/monthly-trend/{userId}")
+    public ResponseEntity<List<Map<String, Object>>> getMonthlyTrend(@PathVariable Long userId) {
+        return ResponseEntity.ok(financialReportService.getMonthlyTrend(userId));
+    }
 
     @GetMapping("/{userId}")
     public ResponseEntity<?> getIncomeVsExpenses(@PathVariable Long userId) {
         return ResponseEntity.ok(financialReportService.getIncomeVsExpenses(userId));
     }
 
+    @GetMapping("/top-categories/{userId}")
+    public ResponseEntity<List<Map<String, Object>>> getTopCategories(@PathVariable Long userId) {
+        return ResponseEntity.ok(financialReportService.getTopCategories(userId, 5));
+    }
 }
