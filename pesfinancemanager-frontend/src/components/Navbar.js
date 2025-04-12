@@ -16,6 +16,7 @@ const Navbar = ({ onLogout }) => {
       <ul className="navbar-links">
         <li><Link to="/expenses">Expenses</Link></li>
         <li><Link to="/financial-goals">Financial Goals</Link></li>
+        <li><Link to="/budget-page">Manage Budget</Link></li>
 
         {/* Reports Dropdown */}
         <li 

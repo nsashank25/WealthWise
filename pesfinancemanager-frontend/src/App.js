@@ -11,6 +11,7 @@ import FinancialGoals from "./components/FinancialGoals";
 import InvestmentDashboard from "./components/InvestmentDashboard";
 import FinancialProfileForm from "./components/FinancialProfileForm";
 import TaxEstimation from "./components/TaxEstimation";
+import BudgetPage from "./components/BudgetPage";
 
 function App() {
   return (
@@ -83,6 +84,7 @@ function AppRoutes() {
         <Route path="/investment-suggestions" element={<InvestmentDashboard />} />
         <Route path="/update-profile" element={<FinancialProfileForm />} />
         <Route path="/tax-estimator" element={<TaxEstimation />} />
+        <Route path="/budget-page" element={<BudgetPage />} />
         
       </Routes>
     </>
