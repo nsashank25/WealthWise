@@ -2,63 +2,160 @@ body, html {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  font-family: 'Roboto', 'Segoe UI', sans-serif;
 }
-
 
 /* Apply full-screen layout */
 .home-container {
+  margin-top: 80px;
   background-color: #121212;
-  color: #eaeaea; 
+  color: #eaeaea;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-  padding: 20px;
+  min-height: 100vh;
+  width: 100%;
+  padding: 0;
   box-sizing: border-box;
 }
 
-/* Styling for the main content card */
-.home-card {
-  background-color: #1e1e1e;
-  width: 80%;
-  max-width: 1200px;
-  padding: 3rem;
-  border-radius: 12px;
+/* Welcome section */
+.dashboard-welcome {
   text-align: center;
-  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.5);
+  padding: 3rem 2rem;
+  margin-bottom: 2rem;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.welcome-subtitle {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  opacity: 0.9;
+  font-weight: 300;
+}
+
+.current-time {
+  font-size: 1.1rem;
+  opacity: 0.7;
+  background-color: rgba(255, 255, 255, 0.05);
+  display: inline-block;
+  padding: 0.5rem 1.2rem;
+  border-radius: 20px;
+  margin-top: 1rem;
+}
+
+/* Dashboard grid layout */
+.dashboard-grid {
+  display: flex;
+  justify-content: center;
+  padding: 0 2rem 3rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Financial tip card */
+.dashboard-card {
+  background-color: #1e1e1e;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 650px;
+  animation: slideUp 0.5s ease-out;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 12px 28px rgba(0, 0, 0, 0.6);
+}
+
+.financial-tip-card h2 {
+  color: #00b894;
+  font-size: 1.7rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tip-content {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 0;
+  min-height: 120px;
+}
+
+.tip-content p {
+  font-style: italic;
+  text-align: center;
+  line-height: 1.8;
+  font-size: 1.3rem;
+  font-weight: 300;
+  opacity: 0.95;
+  margin: 0;
+  transition: opacity 0.5s ease;
+  animation: fadeInTip 0.8s ease-in-out;
+}
+
+.tip-navigation {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tip-counter {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  background-color: rgba(0, 184, 148, 0.1);
+  padding: 0.4rem 1rem;
+  border-radius: 12px;
 }
 
 /* Headings */
 h1 {
   color: #00b894;
   font-size: 2.5rem;
-  margin-bottom: 10px;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
-p {
-  font-size: 1.3rem;
-  margin-bottom: 20px;
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-/* Logout Button */
-.logout-button {
-  background-color: #00b894;
-  color: #121212;
-  border: none;
-  padding: 12px 24px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.logout-button:hover {
-  background-color: #007bff;
-  color: #ffffff;
-  transform: scale(1.05);
+@keyframes fadeInTip {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.95;
+  }
 }
 
 /* Light Theme */
@@ -67,57 +164,89 @@ p {
     background-color: #f8f9fa;
     color: #343a40;
   }
-
-  .home-card {
+  
+  .dashboard-card {
     background-color: #ffffff;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
   }
-
-  h1 {
+  
+  h1, .financial-tip-card h2 {
     color: #007bff;
   }
-
-  .logout-button {
-    background-color: #28a745;
+  
+  .current-time {
+    background-color: rgba(0, 0, 0, 0.05);
   }
-
-  .logout-button:hover {
-    background-color: #007bff;
+  
+  .tip-counter {
+    background-color: rgba(0, 123, 255, 0.1);
   }
 }
 
 /* Responsive Design */
-@media (max-width: 1024px) {
-  .home-card {
-    width: 90%;
-    padding: 2rem;
+@media (max-width: 768px) {
+  .dashboard-welcome {
+    padding: 2rem 1.5rem;
   }
-
+  
   h1 {
     font-size: 2rem;
   }
-
-  p {
+  
+  .welcome-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .dashboard-grid {
+    padding: 0 1rem 2rem;
+  }
+  
+  .dashboard-card {
+    padding: 1.5rem;
+  }
+  
+  .financial-tip-card h2 {
+    font-size: 1.5rem;
+  }
+  
+  .tip-content p {
     font-size: 1.1rem;
   }
 }
 
-@media (max-width: 768px) {
-  .home-card {
-    width: 95%;
-    padding: 1.5rem;
+@media (max-width: 480px) {
+  .dashboard-welcome {
+    padding: 1.5rem 1rem;
   }
-
+  
   h1 {
-    font-size: 1.8rem;
+    font-size: 1.7rem;
   }
-
-  p {
+  
+  .welcome-subtitle {
     font-size: 1rem;
   }
-
-  .logout-button {
-    padding: 10px 20px;
+  
+  .current-time {
+    font-size: 0.9rem;
+  }
+  
+  .dashboard-card {
+    padding: 1.2rem;
+  }
+  
+  .financial-tip-card h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .tip-content {
+    min-height: 100px;
+    padding: 1rem 0;
+  }
+  
+  .tip-content p {
     font-size: 1rem;
+    line-height: 1.6;
   }
 }
