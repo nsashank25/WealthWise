@@ -3,20 +3,21 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
 }
 
 /* Ensure full-screen background */
 html, body {
   width: 100%;
   height: 100%;
-  background-color: #121212; /* Ensure background is fully applied */
+  background-color: #121212;
   color: #eaeaea;
 }
 
-
-/* Full-screen layout */
+/* Full-screen layout with improved background */
 .container {
   background-color: #121212;
+  background-image: radial-gradient(circle at 10% 10%, #1a1a1a 0%, #121212 70%);
   color: #eaeaea;
   display: flex;
   flex-direction: column;
@@ -26,6 +27,46 @@ html, body {
   width: 100vw;
   padding: 20px;
   box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative elements */
+.container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(0, 184, 148, 0.03) 0%,
+    rgba(0, 184, 148, 0) 70%
+  );
+  transform: rotate(-15deg);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Form wrapper with branding */
+.auth-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+}
+
+/* Logo/branding area */
+.brand {
+  margin-bottom: 1.5rem;
+}
+
+.brand-icon {
+  font-size: 2.5rem;
+  color: #00b894;
+  margin-bottom: 0.5rem;
 }
 
 /* Form styling */
@@ -33,27 +74,102 @@ form {
   background-color: #1e1e1e;
   padding: 2.5rem;
   border-radius: 12px;
-  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
   text-align: center;
-  width: 80%;
-  max-width: 450px;
+  width: 100%;
+  position: relative;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  animation: fadeIn 0.6s ease-out;
 }
 
-/* Input fields */
+/* Heading with bottom border */
+h2 {
+  color: #00b894;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.8rem;
+  position: relative;
+  text-align: center;
+  font-weight: 600;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 25%;
+  width: 50%;
+  height: 2px;
+  background: linear-gradient(to right, transparent, #00b894, transparent);
+}
+
+/* Form group styling */
+.form-group {
+  margin-bottom: 1.2rem;
+  text-align: left;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  color: #aaa;
+  transition: all 0.3s;
+}
+
+/* Input fields with icon support */
+.input-group {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  font-size: 1rem;
+}
+
 input {
   width: 100%;
   padding: 12px;
-  margin: 10px 0;
-  border: 1px solid #444;
-  border-radius: 6px;
+  padding-left: 40px; /* Space for icon */
+  margin: 0;
+  border: 1px solid #333;
+  border-radius: 8px;
   background-color: #252525;
   color: #eaeaea;
   font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+/* Better input focus state */
+input:focus {
+  outline: none;
+  border-color: #00b894;
+  box-shadow: 0 0 0 2px rgba(0, 184, 148, 0.2);
 }
 
 /* Input placeholder text color */
 input::placeholder {
-  color: #bbb;
+  color: #888;
+  transition: all 0.3s ease;
+}
+
+input:focus::placeholder {
+  opacity: 0.7;
+  transform: translateX(5px);
+}
+
+/* Error message styling */
+.error-message {
+  color: #ff6b6b;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  text-align: left;
 }
 
 /* Buttons */
@@ -62,109 +178,250 @@ button {
   background-color: #00b894;
   color: #121212;
   border: none;
-  padding: 12px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  border-radius: 6px;
+  padding: 14px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
   cursor: pointer;
-  margin-top: 15px;
-  transition: all 0.3s ease-in-out;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 button:hover {
-  color: #ffffff;
-  transform: scale(1.05);
+  background-color: #00d6a9;
+  color: #121212;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 184, 148, 0.5);
 }
 
-/* Headings */
-h2 {
-  color: #00b894;
-  font-size: 2rem;
-  margin-bottom: 10px;
-  text-align: center;
+button:active {
+  transform: translateY(0);
+}
+
+/* Button click effect */
+button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+button:active::after {
+  animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(20, 20);
+    opacity: 0;
+  }
 }
 
 /* Sign-up & Login Switch Section */
 .switch-link {
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  color: #ccc;
   text-align: center;
-  margin-top: 15px;
-  font-size: 1rem;
-}
-
-/* Ensure switch link and button appear on separate lines */
-.switch-link p {
-  margin-bottom: 10px;
 }
 
 .link-button {
   background: none;
   border: none;
   color: #00b894;
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
-  font-size: 1rem;
-  transition: all 0.3s ease-in-out;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  padding: 5px;
+  margin-left: 5px;
+  width: auto;
 }
 
 .link-button:hover {
+  text-decoration: none;
+  color: #00d6a9;
+  background: none;
+  box-shadow: none;
+}
+
+/* Remember me and forgot password */
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-group input {
+  width: auto;
+  margin-right: 8px;
+}
+
+.forgot-password {
+  color: #00b894;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.forgot-password:hover {
+  color: #00d6a9;
   text-decoration: underline;
+}
+
+/* Divider for social login */
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 1.5rem 0;
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: #333;
+}
+
+.divider::before {
+  margin-right: 10px;
+}
+
+.divider::after {
+  margin-left: 10px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Light Theme */
 @media (prefers-color-scheme: light) {
-  .container {
+  html, body {
     background-color: #f8f9fa;
     color: #343a40;
   }
-
+  
+  .container {
+    background-color: #f8f9fa;
+    background-image: radial-gradient(circle at 10% 10%, #ffffff 0%, #f8f9fa 70%);
+  }
+  
+  .container::before {
+    background: linear-gradient(
+      to bottom right,
+      rgba(0, 123, 255, 0.03) 0%,
+      rgba(0, 123, 255, 0) 70%
+    );
+  }
+  
   form {
     background-color: #ffffff;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
   }
-
+  
   h2 {
     color: #007bff;
   }
-
-  input {
-    background-color: #f1f1f1;
-    color: #343a40;
+  
+  h2::after {
+    background: linear-gradient(to right, transparent, #007bff, transparent);
   }
-
+  
+  input {
+    background-color: #f5f5f5;
+    color: #343a40;
+    border-color: #e0e0e0;
+  }
+  
+  input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+  }
+  
   button {
     background-color: #28a745;
   }
- 
-  .link-button {
+  
+  button:hover {
+    background-color: #2dbc4e;
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+  }
+  
+  .switch-link {
+    color: #6c757d;
+  }
+  
+  .link-button, .forgot-password {
     color: #007bff;
   }
-
-  .link-button:hover {
-    color: #28a745;
+  
+  .link-button:hover, .forgot-password:hover {
+    color: #0056b3;
+  }
+  
+  .divider::before,
+  .divider::after {
+    background-color: #dee2e6;
   }
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   form {
-    width: 90%;
     padding: 2rem;
   }
-
+  
   h2 {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
+    margin-bottom: 1.2rem;
   }
-
+  
   input {
-    font-size: 1rem;
-  }
-
-  button {
     padding: 10px;
+    padding-left: 36px;
+  }
+  
+  button {
+    padding: 12px;
     font-size: 1rem;
   }
-
-  .switch-link {
-    font-size: 0.9rem;
+  
+  .form-options {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
   }
 }

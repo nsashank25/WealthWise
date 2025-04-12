@@ -24,7 +24,7 @@ const Navbar = ({ onLogout }) => {
           onMouseEnter={() => setIsReportsOpen(true)}
           onMouseLeave={() => setIsReportsOpen(false)}
         >
-          <span className="dropdown-toggle">Reports</span>
+          <span className="dropdown-toggle">Financial Tools</span>
           {isReportsOpen && (
             <ul className="dropdown-menu">
               <li><Link to="/income-vs-expenses">Income vs. Expenses</Link></li>
