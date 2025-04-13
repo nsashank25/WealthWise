@@ -45,3 +45,11 @@ export const fetchIncomeVsExpensesReport = async (userId) => {
       throw error;
     }
   };
+
+export const undoLastExpenseOperation = async () => {
+  return await axios.post('http://localhost:8080/api/expenses/undo');
+};
+
+export const redoLastExpenseOperation = async () => {
+  return await axios.post('http://localhost:8080/api/expenses/redo');
+};

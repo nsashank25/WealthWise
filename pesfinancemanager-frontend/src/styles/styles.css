@@ -124,19 +124,9 @@ h2::after {
   position: relative;
 }
 
-.input-icon {
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #888;
-  font-size: 1rem;
-}
-
 input {
   width: 100%;
   padding: 12px;
-  padding-left: 40px; /* Space for icon */
   margin: 0;
   border: 1px solid #333;
   border-radius: 8px;
@@ -200,36 +190,6 @@ button:active {
   transform: translateY(0);
 }
 
-/* Button click effect */
-button::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 5px;
-  height: 5px;
-  background: rgba(255, 255, 255, 0.5);
-  opacity: 0;
-  border-radius: 100%;
-  transform: scale(1, 1) translate(-50%);
-  transform-origin: 50% 50%;
-}
-
-button:active::after {
-  animation: ripple 0.6s ease-out;
-}
-
-@keyframes ripple {
-  0% {
-    transform: scale(0, 0);
-    opacity: 0.5;
-  }
-  100% {
-    transform: scale(20, 20);
-    opacity: 0;
-  }
-}
-
 /* Sign-up & Login Switch Section */
 .switch-link {
   margin-top: 1.5rem;
@@ -258,60 +218,36 @@ button:active::after {
   box-shadow: none;
 }
 
-/* Remember me and forgot password */
+/* New centered forgot password button with proper styling */
 .form-options {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   margin: 1rem 0;
-  font-size: 0.9rem;
+  text-align: center;
 }
 
-.checkbox-group {
+.centered {
   display: flex;
-  align-items: center;
+  justify-content: center;
 }
 
-.checkbox-group input {
-  width: auto;
-  margin-right: 8px;
-}
-
-.forgot-password {
+.forgot-password-btn {
+  background: none;
+  border: none;
   color: #00b894;
-  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
   font-size: 0.9rem;
   transition: all 0.3s ease;
+  padding: 5px;
+  width: auto;
+  margin-top: 0;
 }
 
-.forgot-password:hover {
+.forgot-password-btn:hover {
   color: #00d6a9;
+  background: none;
   text-decoration: underline;
-}
-
-/* Divider for social login */
-.divider {
-  display: flex;
-  align-items: center;
-  margin: 1.5rem 0;
-  color: #888;
-  font-size: 0.9rem;
-}
-
-.divider::before,
-.divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background-color: #333;
-}
-
-.divider::before {
-  margin-right: 10px;
-}
-
-.divider::after {
-  margin-left: 10px;
+  box-shadow: none;
+  transform: translateY(0);
 }
 
 /* Animations */
@@ -384,17 +320,12 @@ button:active::after {
     color: #6c757d;
   }
   
-  .link-button, .forgot-password {
+  .link-button, .forgot-password-btn {
     color: #007bff;
   }
   
-  .link-button:hover, .forgot-password:hover {
+  .link-button:hover, .forgot-password-btn:hover {
     color: #0056b3;
-  }
-  
-  .divider::before,
-  .divider::after {
-    background-color: #dee2e6;
   }
 }
 
@@ -411,17 +342,276 @@ button:active::after {
   
   input {
     padding: 10px;
-    padding-left: 36px;
   }
   
   button {
     padding: 12px;
     font-size: 1rem;
   }
+}
+
+/* Additional CSS to add to your expenses.css file */
+
+/* App Header Styling */
+.app-header {
+  width: 95%;
+  max-width: 900px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.app-title {
+  color: #00b894;
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+/* Alert Message */
+.alert-message {
+  background-color: #252525;
+  border-left: 4px solid #00b894;
+  padding: 10px 15px;
+  margin: 15px 0;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.alert-message p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.close-alert {
+  background: none;
+  border: none;
+  color: #eaeaea;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0 5px;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 15px 0;
+}
+
+.action-button {
+  background-color: #252525;
+  color: #eaeaea;
+  border: 2px solid #303030;
+  border-radius: 5px;
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.action-button:hover {
+  background-color: #303030;
+  border-color: #00b894;
+}
+
+.button-icon {
+  margin-right: 5px;
+  font-size: 1.2rem;
+}
+
+/* Form Improvements */
+.expense-form {
+  margin-bottom: 30px;
+}
+
+.form-title {
+  color: #00b894;
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-control {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  border-radius: 5px;
+  background-color: #252525;
+  color: #eaeaea;
+  border: 1px solid #303030;
+  transition: border-color 0.3s;
+}
+
+.form-control:focus {
+  border-color: #00b894;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 184, 148, 0.2);
+}
+
+/* Input with Icon */
+.input-with-icon {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #eaeaea;
+  pointer-events: none;
+}
+
+.form-control.with-icon {
+  padding-left: 30px;
+}
+
+/* Submit Button */
+.submit-button {
+  background-color: #00b894;
+  color: #121212;
+  padding: 12px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  display: block;
+  margin-top: 10px;
+}
+
+.submit-button:hover {
+  background-color: #00a382;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.submit-button:disabled {
+  background-color: #303030;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Table Improvements */
+.table-container {
+  overflow-x: auto;
+  margin-top: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.expense-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.sortable-header {
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  padding: 15px 12px;
+  transition: background-color 0.2s;
+}
+
+.sortable-header:hover {
+  background-color: #009e81;
+}
+
+/* Category Badges */
+.category-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-align: center;
+  min-width: 80px;
+}
+
+.category-badge.food {
+  background-color: #e17055;
+  color: #121212;
+}
+
+.category-badge.travel {
+  background-color: #0984e3;
+  color: #121212;
+}
+
+.category-badge.utilities {
+  background-color: #6c5ce7;
+  color: #eaeaea;
+}
+
+.category-badge.entertainment {
+  background-color: #00b894;
+  color: #121212;
+}
+
+.category-badge.other {
+  background-color: #636e72;
+  color: #eaeaea;
+}
+
+/* Amount Cell */
+.amount-cell {
+  font-weight: bold;
+  color: #00b894;
+}
+
+/* Loading State */
+.loading-spinner {
+  text-align: center;
+  padding: 30px;
+  color: #00b894;
+  font-size: 1.2rem;
+}
+
+/* Error Message */
+.error-message {
+  background-color: #252525;
+  border-left: 4px solid #e74c3c;
+  padding: 15px;
+  margin: 15px 0;
+  color: #e74c3c;
+  border-radius: 5px;
+}
+
+/* Responsive Improvements */
+@media (max-width: 768px) {
+  .app-title {
+    font-size: 2rem;
+  }
   
-  .form-options {
+  .action-buttons {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 0.8rem;
+    gap: 10px;
+  }
+  
+  .expense-form {
+    padding: 1.5rem;
+  }
+  
+  .category-badge {
+    min-width: auto;
+    font-size: 0.8rem;
   }
 }

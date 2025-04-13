@@ -7,6 +7,9 @@ import java.time.LocalDate;
 @Table(name = "expenses")
 public class Expense {
 
+    @Version
+    private Long version;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

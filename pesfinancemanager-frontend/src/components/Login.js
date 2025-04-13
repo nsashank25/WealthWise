@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/styles.css";
 
-const Login = ({ switchToSignup, onLoginSuccess }) => {
+const Login = ({ switchToSignup, onLoginSuccess } ) => {
   const [credentials, setCredentials] = useState({
     username: "",
     password: "",
@@ -22,7 +22,6 @@ const Login = ({ switchToSignup, onLoginSuccess }) => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
-    
     try {
       const response = await axios.post(
         "http://localhost:8080/api/users/login",
@@ -52,7 +51,6 @@ const Login = ({ switchToSignup, onLoginSuccess }) => {
           <div className="brand-icon">💰</div>
           <h2>Login to Your Account</h2>
         </div>
-        
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="username">Username</label>
@@ -67,7 +65,6 @@ const Login = ({ switchToSignup, onLoginSuccess }) => {
               />
             </div>
           </div>
-          
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <div className="input-group">
@@ -81,18 +78,11 @@ const Login = ({ switchToSignup, onLoginSuccess }) => {
               />
             </div>
           </div>
-          
-          <div className="form-options">
-            <a href="#" className="forgot-password">Forgot password?</a>
-          </div>
-          
           {error && <div className="error-message">{error}</div>}
-          
           <button type="submit" disabled={isLoading}>
             {isLoading ? "Logging in..." : "Login"}
           </button>
         </form>
-        
         <p className="switch-link">
           Don't have an account?
           <button onClick={switchToSignup} className="link-button">
