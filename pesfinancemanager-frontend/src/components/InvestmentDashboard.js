@@ -7,29 +7,24 @@ const InvestmentDashboard = () => {
   const userId = localStorage.getItem("userId");
 
   const [profile, setProfile] = useState(null);
-  const [suggestions, setSuggestions] = useState([]);
   const [advice, setAdvice] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
+        
+        // Always fetch profile data
         const profileResponse = await axios.get(
           `http://localhost:8080/api/investments/profile/${userId}`,
           { withCredentials: true }
         );
         setProfile(profileResponse.data);
 
-        const suggestionsResponse = await axios.get(
-          `http://localhost:8080/api/investments/suggestions/${userId}`,
-          { withCredentials: true }
-        );
-        setSuggestions(suggestionsResponse.data);
-
-        const adviceResponse = await axios.get(
-          `http://localhost:8080/api/investments/advice/${userId}`,
-          { withCredentials: true }
-        );
+        // Fetch advice based on user's profile
+        const adviceUrl = `http://localhost:8080/api/investments/advice/${userId}`;
+        const adviceResponse = await axios.get(adviceUrl, { withCredentials: true });
         setAdvice(adviceResponse.data.advice);
 
         setLoading(false);
@@ -107,45 +102,6 @@ const InvestmentDashboard = () => {
             ))}
           </p>
         </div>
-      </section>
-
-      <section className="investment-suggestions">
-        <h3>Recommended Investment Options</h3>
-        {suggestions.length === 0 ? (
-          <p>
-            No investment suggestions available. Please update your profile.
-          </p>
-        ) : (
-          <div className="suggestion-cards">
-            {suggestions.map((suggestion) => (
-              <div key={suggestion.id} className="suggestion-card">
-                <h4>{suggestion.name}</h4>
-                <p className="description">{suggestion.description}</p>
-                <div className="suggestion-details">
-                  <p>
-                    <strong>Risk Level:</strong> {suggestion.riskLevel}
-                  </p>
-                  <p>
-                    <strong>Duration:</strong> {suggestion.durationMonths}{" "}
-                    months
-                  </p>
-                  <p>
-                    <strong>Expected Return:</strong>{" "}
-                    {suggestion.expectedReturnPercentage}%
-                  </p>
-                  <p>
-                    <strong>Minimum Investment:</strong> ₹
-                    {suggestion.minimumInvestmentAmount.toFixed(2)}
-                  </p>
-                </div>
-                <div className="educational-content">
-                  <h5>Learn More</h5>
-                  <p>{suggestion.educationalContent}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
       </section>
     </div>
   );
