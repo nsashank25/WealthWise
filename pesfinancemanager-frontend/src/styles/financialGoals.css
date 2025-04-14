@@ -5,12 +5,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
-  width: 100vw;
-  padding: 20px;
+  min-height: 100vh;
+  width: 100%;
+  padding: 30px 20px 60px;
   box-sizing: border-box;
-  overflow-y: auto; /* Allow scrolling if content overflows */
+  overflow-y: auto;
   margin-top: 80px;
+  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 /* Form at the top */
@@ -18,136 +19,326 @@
   background-color: #1e1e1e;
   width: 80%;
   max-width: 800px;
-  padding: 2rem;
+  padding: 2.5rem;
   border-radius: 12px;
   text-align: center;
-  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.25), 0 6px 12px rgba(0, 0, 0, 0.22);
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+.goal-form-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #00b894, #1e1e1e);
 }
 
 h2 {
   color: #00b894;
   font-size: 2rem;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  font-weight: 700;
+  position: relative;
+  padding-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background-color: #00b894;
+  border-radius: 2px;
 }
 
 /* Goal Form */
 .goal-form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
   width: 100%;
+  margin-bottom: 20px;
 }
 
 .goal-form input {
   width: 100%;
-  padding: 12px;
-  border: 1px solid #555;
-  border-radius: 6px;
+  padding: 14px 16px;
+  border: 1px solid #333;
+  border-radius: 8px;
   background-color: #222;
   color: #eaeaea;
   font-size: 1rem;
+  transition: all 0.2s ease;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .goal-form input:focus {
   outline: none;
   border-color: #00b894;
+  box-shadow: 0 0 0 3px rgba(0, 184, 148, 0.15), inset 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .add-goal-button {
   background-color: #00b894;
   color: #121212;
   border: none;
-  padding: 12px;
+  padding: 14px;
   font-size: 1rem;
-  font-weight: bold;
-  border-radius: 6px;
+  font-weight: 600;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.25s ease;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .add-goal-button:hover {
-  background-color: #007bff;
+  background-color: #00a486;
   color: #ffffff;
-  transform: scale(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.add-goal-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* Layout for ongoing and completed goals */
 .goals-section {
   display: flex;
   justify-content: center;
-  gap: 20px;
-  width: 80%;
-  max-width: 1200px;
+  gap: 30px;
+  width: 90%;
+  max-width: 1280px;
+  margin-top: 10px;
 }
 
 /* Ongoing Goals */
 .financial-goals-card {
   background-color: #1e1e1e;
-  width: 48%;
-  padding: 2rem;
+  flex: 1;
+  padding: 2.5rem;
   border-radius: 12px;
   text-align: center;
-  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.financial-goals-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #00b894, #1e1e1e);
 }
 
 /* Completed Goals */
-.completed-goals {
-  width: 48%;
+.completed-goals::before {
+  background: linear-gradient(90deg, #00b894, #1e1e1e);
 }
 
 /* Goals List */
 .goals-list {
   width: 100%;
   list-style-type: none;
-  max-width: 800px;
-  margin-top: 10px;
+  padding: 0;
+  margin: 20px 0 0;
 }
 
 .goal-item {
-  background-color: #2a2a2a;
-  padding: 12px;
-  border-radius: 6px;
-  margin: 10px 0;
+  background-color: #292929;
+  padding: 18px 20px;
+  border-radius: 10px;
+  margin: 16px 0;
+  font-size: 1.05rem;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+  text-align: left;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.goal-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.goal-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #00b894, transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.goal-item:hover::after {
+  opacity: 1;
+}
+
+.goal-item strong {
+  font-weight: 600;
   font-size: 1.1rem;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  color: #eaeaea;
 }
 
 .saved-amount {
   color: #00b894;
   font-size: 0.9rem;
-  margin-left: 5px;
+  margin-left: 8px;
+  display: block;
+  margin-top: 5px;
+}
+
+/* Savings update section */
+.savings-update {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.savings-update input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #333;
+  border-radius: 6px;
+  background-color: #222;
+  color: #eaeaea;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  width: 50%; /* Add specific width */
+}
+
+.savings-update input:focus {
+  outline: none;
+  border-color: #00b894;
+  box-shadow: 0 0 0 2px rgba(0, 184, 148, 0.15);
+}
+
+.savings-update button {
+  flex: 1; /* Make button take equal space */
+  background-color: #333;
+  color: #eaeaea;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 50%; /* Add specific width */
+}
+
+.savings-update button:hover {
+  background-color: #00b894;
+  color: #111;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Completed goal styling */
+.goal-item.completed {
+  background-color: #2a332e;
+  position: relative;
+}
+
+.goal-item.completed::before {
+  content: '✓';
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: #00b894;
+  font-weight: bold;
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-  .goal-form-container {
-    width: 90%;
-    padding: 1.5rem;
+@media (max-width: 992px) {
+  .goals-section {
+    width: 95%;
+    gap: 20px;
   }
+  
+  .financial-goals-card {
+    padding: 2rem;
+  }
+}
 
+@media (max-width: 768px) {
+  .financial-goals-container {
+    padding: 20px 15px 40px;
+  }
+  
+  .goal-form-container {
+    width: 95%;
+    padding: 1.8rem;
+  }
+  
   h2 {
     font-size: 1.8rem;
   }
-
+  
   .add-goal-button {
-    padding: 10px;
+    padding: 12px;
     font-size: 1rem;
   }
-
+  
   /* Adjust layout to stack sections on small screens */
   .goals-section {
     flex-direction: column;
-    width: 90%;
+    width: 95%;
+    gap: 30px;
   }
-
+  
   .financial-goals-card {
     width: 100%;
+    padding: 1.8rem;
   }
+}
+
+@media (max-width: 480px) {
+  h2 {
+    font-size: 1.6rem;
+  }
+  
+  .goal-item {
+    padding: 15px;
+  }
+  
+  .savings-update {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .savings-update button {
+    width: 100%;
+  }
+}
+
+/* Added smooth transitions */
+* {
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
