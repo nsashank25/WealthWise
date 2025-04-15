@@ -1,5 +1,5 @@
-/* Reset and Base Styles */
-body, html {
+/* Reset and Base Styles - Scoped to IncomeVsExpenses */
+.income-expenses-page {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
@@ -8,10 +8,6 @@ body, html {
   color: #eaeaea;
   line-height: 1.6;
   padding-top: 70px; /* Adjust based on navbar height */
-}
-
-/* Page Container */
-.income-expenses-page {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -19,11 +15,11 @@ body, html {
   max-width: 1200px;
   margin: 0 auto;
   box-sizing: border-box;
-  animation: fadeIn 0.6s ease-out;
+  animation: incomeExpensesFadeIn 0.6s ease-out;
 }
 
-/* Dashboard Grid Layout */
-.dashboard-grid {
+/* Dashboard Grid Layout - Scoped */
+.income-expenses-page .dashboard-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 32px;
@@ -32,13 +28,13 @@ body, html {
 }
 
 @media (min-width: 992px) {
-  .dashboard-grid {
+  .income-expenses-page .dashboard-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* Card Styling - Base */
-.card {
+/* Card Styling - Base - Scoped */
+.income-expenses-page .card {
   background-color: #1e1e1e;
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
@@ -49,13 +45,13 @@ body, html {
   box-sizing: border-box;
 }
 
-.card:hover {
+.income-expenses-page .card:hover {
   transform: translateY(-5px);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
 }
 
-/* Main Summary Card */
-.income-expenses-card {
+/* Main Summary Card - Scoped */
+.income-expenses-page .income-expenses-card {
   padding: 32px;
   text-align: center;
   display: flex;
@@ -63,8 +59,8 @@ body, html {
   justify-content: space-between;
 }
 
-/* Headings */
-h2 {
+/* Headings - Scoped */
+.income-expenses-page h2 {
   color: #00b894;
   font-size: 2.2rem;
   margin-bottom: 24px;
@@ -75,7 +71,7 @@ h2 {
   padding-bottom: 10px;
 }
 
-h2::after {
+.income-expenses-page h2::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -87,15 +83,15 @@ h2::after {
   border-radius: 3px;
 }
 
-h3 {
+.income-expenses-page h3 {
   color: #00b894;
   font-size: 1.8rem;
   margin-bottom: 20px;
   font-weight: 500;
 }
 
-/* Chart Container */
-.chart-container {
+/* Chart Container - Scoped */
+.income-expenses-page .chart-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -106,18 +102,18 @@ h3 {
   transition: all 0.3s ease;
 }
 
-.chart-container canvas {
+.income-expenses-page .chart-container canvas {
   transition: all 0.4s ease;
   max-width: 100% !important;
   height: auto !important;
 }
 
-.chart-container:hover canvas {
+.income-expenses-page .chart-container:hover canvas {
   filter: drop-shadow(0 0 8px rgba(0, 184, 148, 0.4));
 }
 
-/* Button Styling */
-.download-btn {
+/* Button Styling - Scoped */
+.income-expenses-page .download-btn {
   background: linear-gradient(135deg, #00b894, #26de81);
   color: #fff;
   border: none;
@@ -134,18 +130,18 @@ h3 {
   letter-spacing: 1px;
 }
 
-.download-btn:hover {
+.income-expenses-page .download-btn:hover {
   background: linear-gradient(135deg, #007bff, #00b894);
   transform: translateY(-2px) scale(1.03);
   box-shadow: 0 8px 16px rgba(0, 123, 255, 0.4);
 }
 
-.download-btn:active {
+.income-expenses-page .download-btn:active {
   transform: translateY(1px);
 }
 
-/* Summary Panel */
-.summary {
+/* Summary Panel - Scoped */
+.income-expenses-page .summary {
   padding: 28px 32px;
   border-radius: 16px;
   background-color: #1e1e1e;
@@ -156,76 +152,76 @@ h3 {
   box-sizing: border-box;
 }
 
-.summary-title {
+.income-expenses-page .summary-title {
   color: #00b894;
   font-size: 1.6rem;
   margin-bottom: 20px;
   text-align: center;
 }
 
-/* Modified: Display summary items as a column instead of grid */
-.summary-items {
+/* Modified: Display summary items as a column instead of grid - Scoped */
+.income-expenses-page .summary-items {
   display: flex;
   flex-direction: column;
   gap: 16px;
   width: 100%;
 }
 
-.summary-item {
+.income-expenses-page .summary-item {
   padding: 20px;
   border-radius: 12px;
   text-align: center;
   transition: transform 0.3s ease;
   width: 100%;
   box-sizing: border-box;
-  animation: fadeIn 0.6s ease-out;
+  animation: incomeExpensesFadeIn 0.6s ease-out;
 }
 
-.summary-item:hover {
+.income-expenses-page .summary-item:hover {
   transform: translateY(-5px);
 }
 
-.summary-item.income {
+.income-expenses-page .summary-item.income {
   background-color: rgba(0, 200, 83, 0.15);
   border: 1px solid rgba(0, 200, 83, 0.3);
 }
 
-.summary-item.expenses {
+.income-expenses-page .summary-item.expenses {
   background-color: rgba(255, 82, 82, 0.15);
   border: 1px solid rgba(255, 82, 82, 0.3);
 }
 
-.summary-item.balance {
+.income-expenses-page .summary-item.balance {
   background-color: rgba(64, 196, 255, 0.15);
   border: 1px solid rgba(64, 196, 255, 0.3);
 }
 
-.summary-item-label {
+.income-expenses-page .summary-item-label {
   font-size: 1rem;
   margin-bottom: 8px;
   color: #eaeaea;
   font-weight: 500;
 }
 
-.summary-item-value {
+.income-expenses-page .summary-item-value {
   font-size: 1.8rem;
   font-weight: 700;
 }
 
-.income .summary-item-value {
+.income-expenses-page .income .summary-item-value {
   color: #00c853;
 }
 
-.expenses .summary-item-value {
+.income-expenses-page .expenses .summary-item-value {
   color: #ff5252;
 }
 
-.balance .summary-item-value {
+.income-expenses-page .balance .summary-item-value {
   color: #40c4ff;
 }
 
-/* Bar Chart Container */
-.bar-chart-container {
+/* Bar Chart Container - Scoped */
+.income-expenses-page .bar-chart-container {
   padding: 32px;
   margin-bottom: 32px;
   border-radius: 16px;
@@ -236,13 +232,13 @@ h3 {
   overflow: hidden;
 }
 
-.bar-chart-container h3 {
+.income-expenses-page .bar-chart-container h3 {
   text-align: center;
   margin-bottom: 24px;
 }
 
-/* Top Categories */
-.top-categories {
+/* Top Categories - Scoped */
+.income-expenses-page .top-categories {
   padding: 32px;
   border-radius: 16px;
   background-color: #1e1e1e;
@@ -251,18 +247,18 @@ h3 {
   box-sizing: border-box;
 }
 
-.top-categories h3 {
+.income-expenses-page .top-categories h3 {
   text-align: center;
   margin-bottom: 24px;
 }
 
-.categories-list {
+.income-expenses-page .categories-list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.category-item {
+.income-expenses-page .category-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -273,23 +269,23 @@ h3 {
   transition: all 0.2s ease;
 }
 
-.category-item:hover {
+.income-expenses-page .category-item:hover {
   background-color: rgba(255, 255, 255, 0.1);
   transform: translateX(5px);
 }
 
-.category-name {
+.income-expenses-page .category-name {
   font-weight: 600;
   font-size: 1.1rem;
 }
 
-.category-amount {
+.income-expenses-page .category-amount {
   font-weight: 700;
   color: #00b894;
 }
 
-/* Progress Bar for Categories */
-.progress-container {
+/* Progress Bar for Categories - Scoped */
+.income-expenses-page .progress-container {
   width: 100%;
   height: 8px;
   background-color: rgba(255, 255, 255, 0.1);
@@ -298,118 +294,119 @@ h3 {
   overflow: hidden;
 }
 
-.progress-bar {
+.income-expenses-page .progress-bar {
   height: 100%;
   background: linear-gradient(to right, #00b894, #26de81);
   border-radius: 4px;
   transition: width 0.5s ease;
 }
 
-/* Light Theme */
+/* Light Theme - Scoped */
 @media (prefers-color-scheme: light) {
-  body, html {
+  .income-expenses-page {
     background-color: #f5f7fa;
     color: #2c3e50;
   }
 
-  .card, 
-  .summary, 
-  .bar-chart-container, 
-  .top-categories {
+  .income-expenses-page .card, 
+  .income-expenses-page .summary, 
+  .income-expenses-page .bar-chart-container, 
+  .income-expenses-page .top-categories {
     background-color: #ffffff;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   }
 
-  h2, h3 {
+  .income-expenses-page h2, 
+  .income-expenses-page h3 {
     color: #007bff;
   }
 
-  h2::after {
+  .income-expenses-page h2::after {
     background: linear-gradient(90deg, #007bff, #28a745);
   }
 
-  .download-btn {
+  .income-expenses-page .download-btn {
     background: linear-gradient(135deg, #28a745, #48c774);
   }
 
-  .download-btn:hover {
+  .income-expenses-page .download-btn:hover {
     background: linear-gradient(135deg, #007bff, #28a745);
   }
 
-  .summary-item.income {
+  .income-expenses-page .summary-item.income {
     background-color: rgba(40, 167, 69, 0.1);
     border: 1px solid rgba(40, 167, 69, 0.2);
   }
 
-  .summary-item.expenses {
+  .income-expenses-page .summary-item.expenses {
     background-color: rgba(220, 53, 69, 0.1);
     border: 1px solid rgba(220, 53, 69, 0.2);
   }
 
-  .summary-item.balance {
+  .income-expenses-page .summary-item.balance {
     background-color: rgba(0, 123, 255, 0.1);
     border: 1px solid rgba(0, 123, 255, 0.2);
   }
 
-  .summary-item-label {
+  .income-expenses-page .summary-item-label {
     color: #2c3e50;
   }
 
-  .category-item {
+  .income-expenses-page .category-item {
     background-color: rgba(0, 0, 0, 0.03);
     border: 1px solid rgba(0, 0, 0, 0.05);
   }
 
-  .category-item:hover {
+  .income-expenses-page .category-item:hover {
     background-color: rgba(0, 0, 0, 0.05);
   }
 
-  .category-amount {
+  .income-expenses-page .category-amount {
     color: #007bff;
   }
 
-  .progress-bar {
+  .income-expenses-page .progress-bar {
     background: linear-gradient(to right, #007bff, #28a745);
   }
 }
 
-/* Responsive Design */
+/* Responsive Design - Scoped */
 @media (max-width: 768px) {
   .income-expenses-page {
     padding: 80px 12px 30px;
   }
 
-  .income-expenses-card,
-  .summary,
-  .bar-chart-container,
-  .top-categories {
+  .income-expenses-page .income-expenses-card,
+  .income-expenses-page .summary,
+  .income-expenses-page .bar-chart-container,
+  .income-expenses-page .top-categories {
     padding: 20px;
   }
 
-  h2 {
+  .income-expenses-page h2 {
     font-size: 1.8rem;
   }
 
-  h3 {
+  .income-expenses-page h3 {
     font-size: 1.5rem;
   }
 
-  .chart-container {
+  .income-expenses-page .chart-container {
     height: 280px;
   }
 
-  .download-btn {
+  .income-expenses-page .download-btn {
     padding: 12px 24px;
     font-size: 1rem;
   }
 
-  .summary-item-value {
+  .income-expenses-page .summary-item-value {
     font-size: 1.5rem;
   }
 }
 
-/* Loading and Error States */
-.loading-container {
+/* Loading and Error States - Scoped */
+.income-expenses-page .loading-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -418,22 +415,22 @@ h3 {
   width: 100%;
 }
 
-.loader {
+.income-expenses-page .loader {
   border: 4px solid rgba(0, 184, 148, 0.3);
   border-top: 4px solid #00b894;
   border-radius: 50%;
   width: 40px;
   height: 40px;
-  animation: spin 1s linear infinite;
+  animation: incomeExpensesSpin 1s linear infinite;
   margin-bottom: 20px;
 }
 
-@keyframes spin {
+@keyframes incomeExpensesSpin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
 
-.error-container {
+.income-expenses-page .error-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -443,7 +440,7 @@ h3 {
   text-align: center;
 }
 
-.error-icon {
+.income-expenses-page .error-icon {
   font-size: 48px;
   color: #ff5252;
   margin-bottom: 20px;
@@ -456,7 +453,7 @@ h3 {
   align-items: center;
 }
 
-.retry-btn {
+.income-expenses-page .retry-btn {
   background: linear-gradient(135deg, #00b894, #26de81);
   color: #fff;
   border: none;
@@ -467,18 +464,18 @@ h3 {
   margin-top: 20px;
 }
 
-/* Animations */
-@keyframes fadeIn {
+/* Animations - Renamed to avoid conflicts */
+@keyframes incomeExpensesFadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.dashboard-grid > * {
-  animation: fadeIn 0.6s ease-out;
+.income-expenses-page .dashboard-grid > * {
+  animation: incomeExpensesFadeIn 0.6s ease-out;
 }
 
-.dashboard-grid > *:nth-child(1) { animation-delay: 0.1s; }
-.dashboard-grid > *:nth-child(2) { animation-delay: 0.2s; }
-.summary-item:nth-child(1) { animation-delay: 0.3s; }
-.summary-item:nth-child(2) { animation-delay: 0.4s; }
-.summary-item:nth-child(3) { animation-delay: 0.5s; }
+.income-expenses-page .dashboard-grid > *:nth-child(1) { animation-delay: 0.1s; }
+.income-expenses-page .dashboard-grid > *:nth-child(2) { animation-delay: 0.2s; }
+.income-expenses-page .summary-item:nth-child(1) { animation-delay: 0.3s; }
+.income-expenses-page .summary-item:nth-child(2) { animation-delay: 0.4s; }
+.income-expenses-page .summary-item:nth-child(3) { animation-delay: 0.5s; }
