@@ -14,7 +14,7 @@ public class CommandHistory {
         command.execute();
         undoStack.push(command);
         redoStack.clear(); // Clear redo stack when new command is executed
-        System.out.println("Command executed, undo stack size: " + undoStack.size() + ", redo stack size: " + redoStack.size());
+        System.out.println("Command executed, undo stack size: " + undoStack.size() + ", redo stack size: 0");
     }
 
     public boolean canUndo() {
@@ -47,10 +47,5 @@ public class CommandHistory {
         } else {
             System.out.println("Cannot redo: Redo stack is empty");
         }
-    }
-
-    public void clearHistory() {
-        undoStack.clear();
-        redoStack.clear();
     }
 }
