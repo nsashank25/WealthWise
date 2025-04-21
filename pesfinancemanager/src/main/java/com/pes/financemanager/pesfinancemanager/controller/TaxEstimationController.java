@@ -26,12 +26,13 @@ public class TaxEstimationController {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         double income = user.getIncome();
+        double annualIncome = income * 12;
 
         Map<String, Double> userDeductions = new HashMap<>();
         userDeductions.put("80C", 100000.0);
         userDeductions.put("80D", 10000.0);
 
-        Map<String, Object> taxEstimate = taxEstimationService.calculateTaxEstimate(income, userDeductions);
+        Map<String, Object> taxEstimate = taxEstimationService.calculateTaxEstimate(annualIncome, userDeductions);
         return ResponseEntity.ok(taxEstimate);
     }
 
@@ -44,7 +45,9 @@ public class TaxEstimationController {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         double income = user.getIncome();
-        Map<String, Object> taxEstimate = taxEstimationService.calculateTaxEstimate(income, userDeductions);
+        double annualIncome = income * 12;
+
+        Map<String, Object> taxEstimate = taxEstimationService.calculateTaxEstimate(annualIncome, userDeductions);
         return ResponseEntity.ok(taxEstimate);
     }
 }
