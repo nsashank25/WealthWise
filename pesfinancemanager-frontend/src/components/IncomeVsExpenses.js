@@ -126,7 +126,7 @@ const IncomeVsExpenses = () => {
       {
         label: "Monthly Income",
         backgroundColor: "#00b894",
-        data: monthlyTrend.map((item) => item.income / 12),
+        data: monthlyTrend.map((item) => item.income),
         borderRadius: 8,
       },
       {
@@ -222,7 +222,7 @@ const IncomeVsExpenses = () => {
           <h3 className="summary-title">Financial Summary</h3>
           <div className="summary-items">
             <div className="summary-item income">
-              <div className="summary-item-label">Annual Income</div>
+              <div className="summary-item-label">Monthly Income</div>
               <div className="summary-item-value">
                 {formatCurrencyIN(reportData.totalIncome)}
               </div>

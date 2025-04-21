@@ -45,9 +45,9 @@ public class MonthlyReport implements Report {
 
         report.append("Period: ").append(Month.of(month)).append(" ").append(year).append("\n");
         report.append("User: ").append(user.getUsername()).append("\n");
-        report.append("Monthly Income: Rs. ").append(String.format("%.2f", user.getIncome() / 12)).append("\n");
+        report.append("Monthly Income: Rs. ").append(String.format("%.2f", user.getIncome())).append("\n");
         report.append("Total Expenses: Rs. ").append(String.format("%.2f", totalMonthlyExpenses)).append("\n");
-        report.append("Remaining Budget: Rs. ").append(String.format("%.2f", user.getIncome() / 12 - totalMonthlyExpenses)).append("\n\n");
+        report.append("Remaining Budget: Rs. ").append(String.format("%.2f", user.getIncome() - totalMonthlyExpenses)).append("\n\n");
 
         // Group by day
         Map<Integer, Double> byDay = monthlyExpenses.stream()
