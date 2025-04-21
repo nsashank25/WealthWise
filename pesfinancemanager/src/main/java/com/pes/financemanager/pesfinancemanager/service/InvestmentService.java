@@ -4,11 +4,11 @@ import com.pes.financemanager.pesfinancemanager.model.FinancialProfile;
 import com.pes.financemanager.pesfinancemanager.model.User;
 import com.pes.financemanager.pesfinancemanager.repository.FinancialProfileRepository;
 import com.pes.financemanager.pesfinancemanager.repository.UserRepository;
+import com.pes.financemanager.pesfinancemanager.repository.ExpenseRepository;
 import com.pes.financemanager.pesfinancemanager.strategy.InvestmentStrategy;
 import com.pes.financemanager.pesfinancemanager.strategy.InvestmentStrategyFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.Optional;
 
 @Service
 public class InvestmentService {
@@ -20,24 +20,36 @@ public class InvestmentService {
     private FinancialProfileRepository financialProfileRepository;
 
     @Autowired
+    private ExpenseRepository expenseRepository;
+
+    @Autowired
     private InvestmentStrategyFactory strategyFactory;
 
     public FinancialProfile getOrCreateFinancialProfile(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        return financialProfileRepository.findByUser(user)
+        FinancialProfile profile = financialProfileRepository.findByUser(user)
                 .orElseGet(() -> {
-                    // Create a basic profile if none exists
+                    // Create a new profile with default values
                     FinancialProfile newProfile = new FinancialProfile();
                     newProfile.setUser(user);
-                    newProfile.setMonthlyIncome(user.getIncome());
-                    newProfile.setMonthlyExpenses(0.0); // Default value, to be updated
-                    newProfile.setSavingsAmount(0.0); // Default value, to be updated
-                    newProfile.setRiskTolerance("MEDIUM"); // Default value, to be updated
-                    newProfile.setInvestmentTimeframeMonths(12); // Default value, to be updated
-                    return financialProfileRepository.save(newProfile);
+                    newProfile.setRiskTolerance("MEDIUM");
+                    newProfile.setInvestmentTimeframeMonths(12);
+                    return newProfile;
                 });
+
+        // Always update the financial metrics whether it's a new or existing profile
+        Double totalExpenses = expenseRepository.getTotalExpensesByUserId(userId);
+        Double annualIncome = user.getIncome() * 12;
+        Double savings = annualIncome - totalExpenses;
+
+        profile.setMonthlyIncome(annualIncome);
+        profile.setMonthlyExpenses(totalExpenses);
+        profile.setSavingsAmount(savings);
+
+        // Save the updated profile
+        return financialProfileRepository.save(profile);
     }
 
     public FinancialProfile updateFinancialProfile(Long userId, FinancialProfile profileData) {
@@ -54,9 +66,12 @@ public class InvestmentService {
 
     public String generateInvestmentAdvice(Long userId) {
         FinancialProfile profile = getOrCreateFinancialProfile(userId);
+        User user = profile.getUser();
 
-        double savingsRatio = profile.getSavingsAmount() / profile.getMonthlyIncome();
-        double expenseRatio = profile.getMonthlyExpenses() / profile.getMonthlyIncome();
+        // Calculate ratios based on monthly income (not annual)
+        double monthlyIncome = user.getIncome();
+        double savingsRatio = profile.getSavingsAmount() / monthlyIncome;
+        double expenseRatio = profile.getMonthlyExpenses() / monthlyIncome;
 
         StringBuilder advice = new StringBuilder();
 
@@ -85,14 +100,18 @@ public class InvestmentService {
     // Generate advice for a specific strategy
     public String generateInvestmentAdviceWithStrategy(Long userId, String strategyType) {
         FinancialProfile profile = getOrCreateFinancialProfile(userId);
+        User user = profile.getUser();
+
+        // Calculate ratios based on monthly income (not annual)
+        double monthlyIncome = user.getIncome();
+        double savingsRatio = profile.getSavingsAmount() / monthlyIncome;
+        double expenseRatio = profile.getMonthlyExpenses() / monthlyIncome;
 
         // Get the requested strategy
         InvestmentStrategy strategy = strategyFactory.getStrategy(strategyType);
 
         // Basic financial health assessment
         StringBuilder advice = new StringBuilder();
-        double savingsRatio = profile.getSavingsAmount() / profile.getMonthlyIncome();
-        double expenseRatio = profile.getMonthlyExpenses() / profile.getMonthlyIncome();
 
         advice.append("Financial Health Assessment:\n");
         if (expenseRatio > 0.7) {
